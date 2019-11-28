@@ -1,0 +1,5 @@
+packrat/lib*/
+.Rproj.user
+data/tidy/*
+magma.log
+.DS_Store
