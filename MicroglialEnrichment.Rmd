@@ -34,10 +34,10 @@ print(dim(nickysDatCells))
 
 # Write list to file
 listG = c("Nickys cellbody enriched genes",nickysDatCells$X1)
-write.table(listG,sep="\t",quote=FALSE,row.names = FALSE,col.names = FALSE,file="data/tidy/nickyCellbodyMGL.txt")
+write.table(listG,sep="\t",quote=FALSE,row.names = FALSE,col.names = FALSE,file="data/tidy/Cellbody Enriched.txt")
 
 listG = c("Nickys nuclei enriched genes",nickysDatNuclei$X1)
-write.table(listG,sep="\t",quote=FALSE,row.names = FALSE,col.names = FALSE,file="data/tidy/nickyNucleiMGL.txt")
+write.table(listG,sep="\t",quote=FALSE,row.names = FALSE,col.names = FALSE,file="data/tidy/Nuclei Enriched.txt")
 ```
 
 ## Basic use of the compare.dataset function
@@ -68,43 +68,20 @@ keepCells = c("ASC","exCA","GABA","MG","OPC","ODC")
 dronc_human_dist = prepare_specificity_comparison_across_datasets(MAGMA.Celltyping::ctd_DRONC_human,keepCells,species="human",datasetName="Dronc Human", useCell="MG",sharedName="Microglia",datasetGroup="Nuclei")
 
 # LOAD Zeisel2018
-load("/Users/natske/OneDrive - Imperial College London/Single Cell Datasets/ConvertJuliensFormat2ctd/data/tidy/ctd_ZieselAllLevels.Rda")
-celltype_data = EWCE::convert_new_ewce_to_old(ctd,4)
-fileName = "celltype_data_Zeisel2018_level4.rda"
-save(celltype_data,file=sprintf("Data/%s",fileName))
-ctdFilePath = sprintf("/Users/natske/OneDrive - Imperial College London/DendriticEnrichment/Data/%s",fileName)
 keepCells = c("Astrocytes","Telencephalon projecting excitatory neurons","Telencephalon inhibitory interneurons","Microglia","Oligodendrocyte precursor cells","Oligodendrocytes")
-#zeisel2018_dist = prepare.specificity.comparison.across.datasets(ctdFilePath,keepCells,species="mouse",datasetName="Zeisel 2018",useCell="Telencephalon projecting excitatory neurons",sharedName="Pyramidal Neuron",datasetGroup="Cell")
-zeisel2018_dist = prepare.specificity.comparison.across.datasets(ctdFilePath,keepCells,species="mouse",datasetName="Zeisel 2018",useCell="Microglia",sharedName="Microglia",datasetGroup="Cell")
+zeisel2018_dist = prepare_specificity_comparison_across_datasets(MAGMA.Celltyping::ctd_Zeisel2018,keepCells,species="mouse",datasetName="Zeisel 2018",useCell="Microglia",sharedName="Microglia",datasetGroup="Cell",annotLevel = 4)
 
 # LOAD Saunders2018
-load("/Users/natske/OneDrive - Imperial College London/Single Cell Datasets/ConvertJuliensFormat2ctd/data/tidy/ctd_SaundersWithLvl1.Rda")
-celltype_data = EWCE::convert_new_ewce_to_old(ctd,1)
-fileName = "celltype_data_Saunders2018_level1.rda"
-save(celltype_data,file=sprintf("Data/%s",fileName))
-ctdFilePath = sprintf("/Users/natske/OneDrive - Imperial College London/DendriticEnrichment/Data/%s",fileName)
 keepCells = c("Astrocyte","Pyramidal","Interneuron","Microglia","OPC","Oligodendrocyte")
-#saunders2018_dist = prepare.specificity.comparison.across.datasets(ctdFilePath,keepCells,species="mouse",datasetName="Saunders 2018",useCell="Pyramidal",sharedName="Pyramidal Neuron",datasetGroup="Cell")
-saunders2018_dist = prepare.specificity.comparison.across.datasets(ctdFilePath,keepCells,species="mouse",datasetName="Saunders 2018",useCell="Microglia",sharedName="Microglia",datasetGroup="Cell")
+saunders2018_dist = prepare_specificity_comparison_across_datasets(MAGMA.Celltyping::ctd_Saunders,keepCells,species="mouse",datasetName="Saunders 2018",useCell="Microglia",sharedName="Microglia",datasetGroup="Cell")
 
 # LOAD Blue Lake 2018
-load("/Users/natske/OneDrive - Imperial College London/Single Cell Datasets/BlueLake2018/CellTypeData_BlueLake2018_FrontalCortexOnly.rda")
-celltype_data = EWCE::convert_new_ewce_to_old(ctd,1)
-fileName = "celltype_data_BlueLakeFrontalCortexOnly_level1.rda"
-save(celltype_data,file=sprintf("Data/%s",fileName))
-ctdFilePath = sprintf("/Users/natske/OneDrive - Imperial College London/DendriticEnrichment/Data/%s",fileName)
 keepCells = c("Ast","Ex","In","Mic","OPC","Oli")
-#lakeFrontal_dist = prepare.specificity.comparison.across.datasets(ctdFilePath,keepCells,species="human",datasetName="Lake Frontal",useCell="Ex",sharedName="Pyramidal Neuron",datasetGroup="Nuclei")
-lakeFrontal_dist = prepare.specificity.comparison.across.datasets(ctdFilePath,keepCells,species="human",datasetName="Lake Frontal",useCell="Mic",sharedName="Microglia",datasetGroup="Nuclei")
+lakeFrontal_dist = prepare_specificity_comparison_across_datasets(MAGMA.Celltyping::ctd_BlueLake2018_FrontalCortexOnly,keepCells,species="human",datasetName="Lake Frontal",useCell="Mic",sharedName="Microglia",datasetGroup="Nuclei")
 
 # LOAD Blue Lake 2018
-load("/Users/natske/OneDrive - Imperial College London/Single Cell Datasets/BlueLake2018/CellTypeData_BlueLake2018_VisualCortexOnly.rda")
-celltype_data = EWCE::convert_new_ewce_to_old(ctd,1)
-fileName = "celltype_data_BlueLakeVisualCortexOnly_level1.rda"
-save(celltype_data,file=sprintf("Data/%s",fileName))
-ctdFilePath = sprintf("/Users/natske/OneDrive - Imperial College London/DendriticEnrichment/Data/%s",fileName)
 keepCells = c("Ast","Ex","In","Mic","OPC","Oli")
-lakeVisual_dist = prepare.specificity.comparison.across.datasets(ctdFilePath,keepCells,species="human",datasetName="Lake Visual",useCell="Mic",sharedName="Microglia",datasetGroup="Nuclei")
+lakeVisual_dist = prepare_specificity_comparison_across_datasets(MAGMA.Celltyping::ctd_BlueLake2018_VisualCortexOnly,keepCells,species="human",datasetName="Lake Visual",useCell="Mic",sharedName="Microglia",datasetGroup="Nuclei")
 
 # Merge the datasets into a list
 allDataSets = list(mouseSS_dist,divseq_dist,aba_human_dist,tasic_mouse_dist,dronc_mouse_dist,dronc_human_dist,zeisel2018_dist,saunders2018_dist,lakeFrontal_dist,lakeVisual_dist)
@@ -115,42 +92,53 @@ allDataSets = list(mouseSS_dist,divseq_dist,aba_human_dist,tasic_mouse_dist,dron
 
 ```{r }
 list_path = sprintf("Data/%s.txt",listN)
-for(listN in c("nickyCellbodyMGL","nickyNucleiMGL")){
-    res = test_all_comparisons(allDataSets=allDataSets,orthologs=orthologs,sharedName="Microglia",listN=listN,path = "Data")
-    thePlot = generate_publication_plot_for_single_list(res,listName=listN)
+lists = c("Cellbody Enriched","Nuclei Enriched")
+for(listN in lists){
+    #res = test_all_comparisons(allDataSets=allDataSets,orthologs=orthologs,sharedName="Microglia",listN=listN,path = "Data")
+    res = test_all_comparisons(allDataSets=allDataSets,orthologs=orthologs,sharedName="Microglia",listN=listN,path = "data/tidy",pSides="twosided",reps=100)
+    print(res$list)
+    thePlot = generate_publication_plot_for_single_list(res,listName=listN,save_folder = "results/figures")
+    if(listN==lists[1]){
+        allRes=res
+    }else{
+        allRes=rbind(allRes,res)
+    }
 }
+
+thePlot = generate_publication_plot_for_single_list(allRes,listName=NA,save_folder = "results/figures")
+thePlot
 ```
 
 # Secondary analyses
 
 ```{r }
-library(One2One)
-library(EWCE)
-
-for(listN in c("nickyCellbodyMGL","nickyNucleiMGL")){
-    list_path = sprintf("Data/%s.txt",listN)
-    geneListHGNC = read.csv(list_path,stringsAsFactors = F)[,1][-1]
-    
-    mouse.hits = One2One::ortholog_data_Mouse_Human$orthologs_one2one[One2One::ortholog_data_Mouse_Human$orthologs_one2one$human.symbol %in% geneListHGNC,]$mouse.symbol
-    mouse.bg   = One2One::ortholog_data_Mouse_Human$orthologs_one2one$mouse.symbol
-    full_results = bootstrap.enrichment.test(sct_data=EWCE::ctd,hits=mouse.hits,bg=mouse.bg,reps=100,annotLevel=1)
-    
-    pdf(file=sprintf("Results/Figures/EWCE/EWCE_%s.pdf",listN),width=5,height=3.7)
-    print(ewce.plot(full_results$results,mtc_method="BH"))
-    dev.off()
-}
+# library(One2One)
+# library(EWCE)
+# 
+# for(listN in c("nickyCellbodyMGL","nickyNucleiMGL")){
+#     list_path = sprintf("Data/%s.txt",listN)
+#     geneListHGNC = read.csv(list_path,stringsAsFactors = F)[,1][-1]
+#     
+#     mouse.hits = One2One::ortholog_data_Mouse_Human$orthologs_one2one[One2One::ortholog_data_Mouse_Human$orthologs_one2one$human.symbol %in% geneListHGNC,]$mouse.symbol
+#     mouse.bg   = One2One::ortholog_data_Mouse_Human$orthologs_one2one$mouse.symbol
+#     full_results = bootstrap.enrichment.test(sct_data=EWCE::ctd,hits=mouse.hits,bg=mouse.bg,reps=100,annotLevel=1)
+#     
+#     pdf(file=sprintf("Results/Figures/EWCE/EWCE_%s.pdf",listN),width=5,height=3.7)
+#     print(ewce.plot(full_results$results,mtc_method="BH"))
+#     dev.off()
+# }
 ```
 
 # GWAS enrichment
 
 ```{r }
-library(MAGMA.Celltyping)
-gwas_sumstats_path = "/Users/natske/OneDrive - Imperial College London/GWAS_Summary_Statistics/AD_sumstats_Jansenetal_MOD.txt"
-geneset_res = calculate_geneset_enrichment(geneset=geneListHGNC,gwas_sumstats_path=gwas_sumstats_path,analysis_name="Cellbody enriched",upstream_kb=10,downstream_kb=1.5,genome_ref_path=genome_ref_path,geneset_species="human")
-print(geneset_res)
-
-
-geneset_res = calculate_geneset_enrichment(geneset=names(sort(ctd[[1]]$specificity[,"Microglia"],decreasing = TRUE)[1:200]),gwas_sumstats_path=gwas_sumstats_path,analysis_name="Cellbody enriched",upstream_kb=10,downstream_kb=1.5,genome_ref_path=genome_ref_path,geneset_species="mouse")
-print(geneset_res)
+# library(MAGMA.Celltyping)
+# gwas_sumstats_path = "/Users/natske/OneDrive - Imperial College London/GWAS_Summary_Statistics/AD_sumstats_Jansenetal_MOD.txt"
+# geneset_res = calculate_geneset_enrichment(geneset=geneListHGNC,gwas_sumstats_path=gwas_sumstats_path,analysis_name="Cellbody enriched",upstream_kb=10,downstream_kb=1.5,genome_ref_path=genome_ref_path,geneset_species="human")
+# print(geneset_res)
+# 
+# 
+# geneset_res = calculate_geneset_enrichment(geneset=names(sort(ctd[[1]]$specificity[,"Microglia"],decreasing = TRUE)[1:200]),gwas_sumstats_path=gwas_sumstats_path,analysis_name="Cellbody enriched",upstream_kb=10,downstream_kb=1.5,genome_ref_path=genome_ref_path,geneset_species="mouse")
+# print(geneset_res)
 ```
 
